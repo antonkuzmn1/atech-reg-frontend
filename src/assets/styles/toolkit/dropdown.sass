@@ -1,0 +1,70 @@
+@import "../variables"
+@import "scrollbar"
+@import "input"
+@import "button.sass"
+
+@mixin dropdown
+  position: relative
+
+  & div.dropdown
+    position: absolute
+    top: 100%
+    left: 0
+    display: block
+    z-index: 1
+    overflow: hidden
+    border: none
+    max-height: calc(100vh - #{$height_medium * 2.5})
+    max-width: calc(100vw - 10px)
+    width: 300px
+    height: 60vh
+    resize: both
+    box-shadow: $shadowDefault
+    margin-top: 1px
+    // margin-left: -1px;
+    border-top: 1px solid $colorDefault_hover
+
+
+@mixin dropdownDefault_filter
+  @include dropdown
+
+  & div.dropdown
+    background-color: $colorDefault
+    @include inputDefault
+
+    & input
+      @include inputDefault
+      height: $height_medium
+
+
+    & div
+      &.list
+        overflow-y: auto
+        overflow-x: auto
+        width: 100%
+        height: calc(100% - #{$height_medium * 2})
+        @include scrollbar
+        display: block
+
+        & div.listrows
+          @include inputDefault
+          text-align: left
+          padding: 5px
+
+          &:hover
+            background-color: $colorDefault_hover
+
+
+      &.tools
+        position: sticky
+        z-index: 1
+        bottom: 0
+
+        & button
+          @include buttonBrand
+          height: $height_medium
+
+
+
+
+

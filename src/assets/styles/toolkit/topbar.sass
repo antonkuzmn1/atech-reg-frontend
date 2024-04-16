@@ -1,0 +1,17 @@
+@import '../variables'
+@import 'scrollbar'
+@import 'button'
+
+@mixin topbar
+  background-color: $colorBrand
+  height: $height_medium
+  box-shadow: $shadowDefault
+  display: flex
+  overflow-x: auto
+  overflow-y: hidden
+  @include scrollbar
+
+  & a,
+  & button,
+  & form
+    @include buttonBrand

@@ -1,0 +1,66 @@
+@import '../variables'
+@import '../toolkit/scrollbar'
+
+section
+  display: none
+  z-index: 1000
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  position: absolute
+
+  & div.background
+    height: 100vh
+    width: 100%
+    background-color: rgba(0, 0, 0, 0.5)
+    display: flex
+
+    & div.body
+      background-color: $colorDefault
+      width: 300px
+      margin: auto
+      box-shadow: $shadowDefault
+
+      & div.top
+        display: flex
+        width: 100%
+        height: $height_medium
+        background-color: $colorBrand
+        box-shadow: $shadowDefault
+        user-select: none
+
+        & p.header
+          margin: auto auto auto $height_smaller
+          font-family: $font_family_default
+          font-size: $font_size_large
+          color: $colorBrand_forFont
+          cursor: default
+
+
+        & div.cross
+          width: $height_medium
+          display: flex
+          cursor: pointer
+
+          & span
+            margin: auto
+            font-size: $height_small
+            color: $colorBrand_forFont
+
+
+          &:hover
+            background-color: $colorBrand_dark
+
+
+    & div.main
+      overflow-y: auto
+      overflow-x: hidden
+      max-height: calc(100vh - $height_medium)
+
+      & div.content
+        margin: $height_smaller
+
+
+
+

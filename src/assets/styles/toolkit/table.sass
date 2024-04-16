@@ -1,0 +1,83 @@
+@import "../variables"
+@import "scrollbar.sass"
+@import "dropdown.sass"
+@import "input.sass"
+@import "select.sass"
+
+@mixin cell
+  background-color: $colorDefault
+  border: 1px solid $colorDefault_hover
+  padding: 0
+  font-size: $font_size_medium
+  font-family: $font_family_default
+  font-weight: lighter
+  text-align: center
+
+  & textarea,
+  & input
+    @include inputDefault
+    width: 100%
+    height: 100%
+
+  & button
+    @include buttonDefault
+
+  & select
+    @include selectDefault
+
+
+  &.small
+    min-width: $width_small
+    max-width: $width_small
+
+  &.medium
+    min-width: $width_medium
+    max-width: $width_medium
+
+  &.large
+    min-width: $width_large
+    max-width: $width_large
+
+
+@mixin table
+  overflow: auto
+  width: 100%
+  height: calc(100vh - $height_medium)
+  @include scrollbar
+
+  & table
+    margin-left: auto
+    margin-right: auto
+    border-collapse: collapse
+
+    &.header
+      position: sticky
+      top: 0
+      z-index: 1
+      box-shadow: $shadowDefault
+
+      & tr th
+        height: $height_medium
+        @include cell
+        @include dropdownDefault_filter
+
+
+    &.content
+      & tr
+        &.selected
+          outline: 2px dashed $colorBrand
+
+        & td
+          height: 75px
+          @include cell
+
+
+  & div.loading
+    display: flex
+    height: calc(100vh - #{$height_medium * 4})
+
+    & img
+      margin: auto
+
+
+

@@ -1,0 +1,52 @@
+@import "../variables"
+
+@mixin button
+  align-items: center
+  position: relative
+  display: flex
+  justify-content: center
+  text-decoration: none
+  border: none
+  outline: none
+  font-family: $font_family_default
+  color: $colorDefault_forFont
+  font-weight: lighter
+  cursor: pointer
+
+
+@mixin buttonBrand
+  @include button
+  font-size: $font_size_large
+  min-width: $width_medium
+  padding: 0 20px
+  white-space: nowrap
+  background-color: $colorBrand
+  color: $colorBrand_forFont
+
+  &:hover,
+  &:active,
+  &.active,
+  &.checked
+    background-color: $colorBrand_dark
+
+
+@mixin buttonDefault
+  @include button
+  font-size: $font_size_medium
+  width: 100%
+  height: 100%
+  color: $colorDefault_forFont
+  background-color: $colorDefault
+
+  &:hover
+    background-color: $colorDefault_hover
+
+
+  &:active
+    background-color: $colorDefault_focus
+
+
+  &.changed
+    background-color: $colorDefault_changed
+
+

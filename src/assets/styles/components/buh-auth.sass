@@ -1,0 +1,28 @@
+@import '../variables'
+@import '../toolkit/scrollbar'
+@import '../toolkit/button'
+@import '../toolkit/input'
+
+section
+  @include scrollbar
+  width: 100%
+  height: calc(100vh - $height_medium)
+  display: flex
+
+  & div
+    margin: auto
+    width: $width_medium
+    box-shadow: $shadowDefault
+
+    & button
+      @include buttonBrand
+      height: 35px
+
+
+    & input
+      @include inputDefault
+      height: 35px
+      width: 100%
+
+
+

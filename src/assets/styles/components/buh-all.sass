@@ -1,0 +1,37 @@
+@import '../variables'
+@import '../toolkit/table'
+@import '../toolkit/input'
+@import '../toolkit/select'
+
+section
+  @include table
+
+  & app-modal div.modal
+    & div.plate-in-modal
+      // height: calc($height_medium * 2);
+      margin-bottom: $height_smaller
+      display: grid
+
+      & label
+        // height: $height_medium;
+        width: 100%
+        display: grid
+        font-family: $font_family_default
+        font-size: $font_size_large
+        color: $colorDefault_forFont
+        align-items: flex-end
+        border-bottom: 1px solid $colorDefault_hover
+
+        & select
+          @include selectDefault
+          height: $height_medium
+
+
+        & input
+          @include inputDefault
+          height: $height_medium
+
+
+      & button
+        @include buttonBrand()
+        height: $height_medium

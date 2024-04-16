@@ -1,0 +1,15 @@
+<section>
+    <div *ngIf="allow(); then allowed else notAllowed"></div>
+    <ng-template #allowed>
+        <div>
+            <button (click)="logout()">Выход</button>
+        </div>
+    </ng-template>
+    <ng-template #notAllowed>
+        <div>
+            <input appInput type="text" [(ngModel)]="login" placeholder="Логин">
+            <input appInput type="password" [(ngModel)]="password" placeholder="Пароль">
+            <button (click)="auth()">Вход</button>
+        </div>
+    </ng-template>
+</section>

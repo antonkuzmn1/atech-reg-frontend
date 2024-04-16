@@ -1,0 +1,38 @@
+<section>
+    <table class="header">
+        <tr>
+            <th class="small"></th>
+            <th class="medium"><input type="text" [(ngModel)]="pp.start" (change)="convertToJSON()"></th>
+            <th class="medium"><input type="text" [(ngModel)]="pp.stop" (change)="convertToJSON()"></th>
+            <th class="large"><input type="file" (change)="onFileChange($event)"></th>
+            <th class="medium"><button *ngIf="jsonData.length" (click)="upload()">Применить</button></th>
+            <th class="small">total: {{insertedRows}}</th>
+        </tr>
+        <tr>
+            <th class="small"></th>
+            <th class="medium"><input type="text" [(ngModel)]="pp.inputDate" (change)="convertToJSON()"></th>
+            <th class="medium"><input type="text" [(ngModel)]="pp.contrAgent" (change)="convertToJSON()"></th>
+            <th class="large"><input type="text" [(ngModel)]="pp.paymentDestination" (change)="convertToJSON()"></th>
+            <th class="medium"><input type="text" [(ngModel)]="pp.initiatorOfPayment" (change)="convertToJSON()"></th>
+            <th class="small"><input type="text" [(ngModel)]="pp.sum" (change)="convertToJSON()"></th>
+        </tr>
+        <tr>
+            <th class="small">Номер</th>
+            <th class="medium">Вх.дата</th>
+            <th class="medium">Получатель</th>
+            <th class="large">Назначение платежа</th>
+            <th class="medium">Инициатор по договору</th>
+            <th class="small">Сумма</th>
+        </tr>
+    </table>
+    <table class="content">
+        <tr *ngFor="let row of firstAndLastRows">
+            <td class="small">{{row.index}}</td>
+            <td class="medium">{{dateToString(row.row.inputDate)}}</td>
+            <td class="medium">{{row.row.contrAgent}}</td>
+            <td class="large">{{row.row.paymentDestination}}</td>
+            <td class="medium">{{row.row.initiatorOfPayment}}</td>
+            <td class="small">{{row.row.sum}}</td>
+        </tr>
+    </table>
+</section>

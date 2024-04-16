@@ -1,0 +1,78 @@
+@import "../variables"
+
+@mixin input
+  border: none
+  outline: none
+  padding: 0
+  font-family: $font_family_default
+
+
+@mixin inputDefault
+  & label
+    width: calc(100% - 20px)
+
+  &[type="text"],
+  &[type="password"],
+  &[type="search"]
+    @include input
+    background-color: $colorDefault
+    color: $colorDefault_forFont
+    text-align: center
+
+    &:hover
+      background-color: $colorDefault_hover
+
+    &:focus
+      background-color: $colorDefault_focus
+
+    &::placeholder
+      color: $colorDefault_forFont_placeholder
+
+    &.changed
+      background-color: $colorDefault_changed
+
+
+  &[type="number"]
+    @include input
+    background-color: $colorDefault
+    color: $colorDefault_forFont
+    text-align: center
+
+    &:hover
+      background-color: $colorDefault_hover
+
+    &:focus
+      background-color: $colorDefault_focus
+
+    &::placeholder
+      color: $colorDefault_forFont_placeholder
+
+    &.changed
+      background-color: $colorDefault_changed
+
+
+  &[type="checkbox"]
+    width: 20px
+    height: 20px
+
+  &[type="date"],
+  &[type="month"]
+    @include input
+    background-color: $colorDefault
+    color: $colorDefault_forFont
+    text-align: center
+
+    &:hover
+      background-color: $colorDefault_hover
+
+    &:focus
+      background-color: $colorDefault_focus
+
+    &::placeholder
+      color: $colorDefault_forFont_placeholder
+
+    &.changed
+      background-color: $colorDefault_changed
+
+
+
