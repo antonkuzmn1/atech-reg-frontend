@@ -1,13 +1,8 @@
 <section>
   <table class="header">
     <tr>
-      <th class="medium">
-        <input
-          type="month"
-          (change)="filterInputDate()"
-          [(ngModel)]="filterInputDateString"
-        />
-      </th>
+      <th class="small"></th>
+      <th class="medium"></th>
       <th class="large"></th>
       <th class="medium">{{ loadingPlate }}</th>
       <th class="small">
@@ -25,6 +20,13 @@
       <th class="medium"></th>
     </tr>
     <tr>
+      <th class="small">
+        <input
+          type="month"
+          (change)="filterInputDate()"
+          [(ngModel)]="filterInputDateString"
+        />
+      </th>
       <th class="medium">
         <button (click)="filterToggle(0)">Контрагент</button>
         <div class="dropdown" *ngIf="filterIsOpened[0]">
@@ -238,10 +240,10 @@
             placeholder="Максимальная дата"
           />
           <label
-            ><input
-              type="checkbox"
-              [(ngModel)]="filter.copyDate.null"
-            />Показать строки без даты</label
+          ><input
+            type="checkbox"
+            [(ngModel)]="filter.copyDate.null"
+          />Показать строки без даты</label
           >
           <div class="tools">
             <button (click)="tableUpdate()">Применить</button>
@@ -269,10 +271,10 @@
             placeholder="Максимальная дата"
           />
           <label
-            ><input
-              type="checkbox"
-              [(ngModel)]="filter.origDate.null"
-            />Показать строки без даты</label
+          ><input
+            type="checkbox"
+            [(ngModel)]="filter.origDate.null"
+          />Показать строки без даты</label
           >
           <div class="tools">
             <button (click)="tableUpdate()">Применить</button>
@@ -287,7 +289,7 @@
           style="height: auto; width: 200px; resize: none"
           *ngIf="filterIsOpened[11]"
         >
-          <input [(ngModel)]="filter.title" type="search" placeholder="Поиск" />
+          <input [(ngModel)]="filter.title" type="search" placeholder="Поиск"/>
           <div class="tools">
             <button (click)="tableUpdate()">Применить</button>
           </div>
@@ -302,6 +304,7 @@
         (click)="toggleSelected(row)"
         [class.selected]="row === selectedRow"
       >
+        <td class="small">{{ formatDate(row.inputDate) }}</td>
         <td class="medium">{{ row.contractor.name }}</td>
         <td class="large">{{ row.destination }}</td>
         <td class="medium">{{ row.initiator ? row.initiator.name : "" }}</td>

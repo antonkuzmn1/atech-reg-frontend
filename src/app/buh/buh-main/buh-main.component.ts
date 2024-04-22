@@ -477,4 +477,13 @@ export class BuhMainComponent implements OnInit {
       }
     },
   };
+
+  formatDate(inputDate: string | Date): string {
+    const date: Date = new Date(inputDate);
+    const day: string = String(date.getDate()).padStart(2, '0');
+    const month: string = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы в JavaScript начинаются с 0
+    const year: number = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  }
 }
