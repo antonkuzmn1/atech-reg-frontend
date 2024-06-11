@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class BuhMainFilter {
   public inputDate: { from: Date; to: Date } = {
     from: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1),
-    to: new Date(new Date().getFullYear(), new Date().getMonth(), 0),
+    to: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   };
   public copyDate: { from: Date; to: Date; null: boolean } = {
     from: new Date(2000, 0, 0),

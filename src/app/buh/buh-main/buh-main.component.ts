@@ -217,7 +217,7 @@ export class BuhMainComponent implements OnInit {
     const year = this.vars.buh.main.year.getYear();
     const month = this.vars.buh.main.month.getMonth();
     this.filter.inputDate.from = new Date(year, month - 1, 1);
-    this.filter.inputDate.to = new Date(year, month, 0);
+    this.filter.inputDate.to = new Date(year, month, 1);
     this.service.get().subscribe({
       next: (data: BuhMainTable[]) => {
         this.table = data.map((row) => {
