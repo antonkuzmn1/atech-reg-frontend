@@ -9,7 +9,6 @@ import { SessionService } from '../common/session.service';
   imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIf],
   template: `
     <section>
-      <a routerLink="/home" routerLinkActive="active">В главное меню</a>
       <a routerLink="/buh/auth" routerLinkActive="active">Авторизация</a>
       <a routerLink="/buh/main" routerLinkActive="active">Основной реестр</a>
       <a routerLink="/buh/all" routerLinkActive="active">Пользовательский реестр</a>

@@ -1,8 +1,0 @@
-<section>
-    <a routerLink="/home" routerLinkActive="active">В главное меню</a>
-    <a routerLink="/buh/auth" routerLinkActive="active">Авторизация</a>
-    <a routerLink="/buh/main" routerLinkActive="active">Основной реестр</a>
-    <a routerLink="/buh/all" routerLinkActive="active">Пользовательский реестр</a>
-    <a *ngIf="allow()" routerLink="/buh/import" routerLinkActive="active">Импорт из 1С</a>
-</section>
-<router-outlet></router-outlet>

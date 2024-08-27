@@ -4,11 +4,8 @@ import { BuhAuthComponent } from './buh/buh-auth/buh-auth.component';
 import { BuhImportComponent } from './buh/buh-import/buh-import.component';
 import { BuhMainComponent } from './buh/buh-main/buh-main.component';
 import { BuhComponent } from './buh/buh.component';
-import { HomeComponent } from './home/home.component';
-import { LogComponent } from './log/log.component';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   {
     path: 'buh',
     component: BuhComponent,
@@ -21,7 +18,6 @@ export const routes: Routes = [
       { path: 'main', redirectTo: 'main/0/0', pathMatch: 'full' },
     ],
   },
-  { path: 'log', component: LogComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'buh/main', pathMatch: 'full' },
+  { path: '**', redirectTo: 'buh/main', pathMatch: 'full' },
 ];
