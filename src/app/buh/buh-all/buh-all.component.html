@@ -1,276 +1,303 @@
 <section>
 
-  <table class="header">
-    <tr>
-      <th class="medium">
-        <input type="month" (change)="filterInputDate()" [(ngModel)]="filterInputDateString" />
-      </th>
-      <th class="medium">{{ loadingElements.text }}</th>
-      <th class="large"></th>
-      <th class="small"><button *ngIf="isChanged" (click)="submit()">Применить</button></th>
-      <th class="small"><button *ngIf="isChanged" (click)="tableUpdate()">Отменить</button></th>
-      <th class="small"><button (click)="modal.open('Новая строка')">Добавить</button></th>
-      <th class="small"></th>
-      <th class="small"></th>
-      <th class="small"></th>
-      <th class="small"></th>
-      <th class="medium"></th>
-    </tr>
-    <tr>
-      <th class="medium">
-        <button (click)="filterToggle(0)">Инициатор</button>
-        <div class="dropdown" *ngIf="filterIsOpened[0]">
-          <div class="list">
-            <div class="listrows" *ngFor="let i of initiators" (click)="toggleCheckbox(i)">
-              <input [(ngModel)]="i.isChecked" id="{{ i.id }}" type="checkbox" />
-              <label>{{ i.name }}</label>
-            </div>
-          </div>
-          <div class="tools">
-            <button (click)="ddFilterManager.confirm('initiator')">
-              Применить
-            </button>
-            <button (click)="ddFilterManager.reset('initiator')">
-              Сбросить
-            </button>
-          </div>
-        </div>
-      </th>
-      <th class="medium">
-        <button (click)="filterToggle(1)">Контрагент</button>
-        <div class="dropdown" *ngIf="filterIsOpened[1]">
-          <div class="list">
-            <div class="listrows" *ngFor="let c of contractors" (click)="toggleCheckbox(c)">
-              <input [(ngModel)]="c.isChecked" id="{{ c.id }}" type="checkbox" />
-              <label>{{ c.name }}</label>
-            </div>
-          </div>
-          <div class="tools">
-            <button (click)="ddFilterManager.confirm('contractor')">
-              Применить
-            </button>
-            <button (click)="ddFilterManager.reset('contractor')">
-              Сбросить
-            </button>
-          </div>
-        </div>
-      </th>
-      <th class="large">
-        <button (click)="filterToggle(2)">Назначение</button>
-        <div class="dropdown" style="height: auto; resize: none" *ngIf="filterIsOpened[2]">
-          <input [(ngModel)]="filter.destination" type="search" placeholder="Поиск" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(3)">Номер</button>
-        <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[3]">
-          <input [(ngModel)]="filter.number.from" type="number" placeholder="Минимальный номер" />
-          <input [(ngModel)]="filter.number.to" type="number" placeholder="Максимальный номер" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(4)">Дата док-а</button>
-        <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[4]">
-          <input (change)="syncFilterDate('mainDate', 'from')" [(ngModel)]="filter.mainDate.from" type="date"
-            placeholder="Минимальная дата" />
-          <input (change)="syncFilterDate('mainDate', 'to')" [(ngModel)]="filter.mainDate.to" type="date"
-            placeholder="Максимальная дата" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-            <button (click)="setFilterDateToDefault('mainDate')">Сбросить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(5)">Сумма</button>
-        <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[5]">
-          <input [(ngModel)]="filter.sum.from" type="number" placeholder="Минимальная сумма" />
-          <input [(ngModel)]="filter.sum.to" type="number" placeholder="Максимальная сумма" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(6)">Отметка</button>
-        <div class="dropdown" style="height: auto" *ngIf="filterIsOpened[6]">
-          <div class="list">
-            <div class="listrows" *ngFor="let m of marks" (click)="toggleCheckbox(m)">
-              <input [(ngModel)]="m.isChecked" id="{{ m.id }}" type="checkbox" />
-              <label>{{ m.name }}</label>
-            </div>
-          </div>
-          <div class="tools">
-            <button (click)="ddFilterManager.confirm('mark')">Применить</button>
-            <button (click)="ddFilterManager.reset('mark')">Сбросить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(7)">Статус</button>
-        <div class="dropdown" style="height: auto; width: 200px" *ngIf="filterIsOpened[7]">
-          <div class="list">
-            <div class="listrows" *ngFor="let s of statuses" (click)="toggleCheckbox(s)">
-              <input [(ngModel)]="s.isChecked" id="{{ s.id }}" type="checkbox" />
-              <label>{{ s.name }}</label>
-            </div>
-          </div>
-          <div class="tools">
-            <button (click)="ddFilterManager.confirm('status')">
-              Применить
-            </button>
-            <button (click)="ddFilterManager.reset('status')">Сбросить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(8)">Дата копии</button>
-        <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[8]">
-          <input (change)="syncFilterDate('copyDate', 'from')" [(ngModel)]="filter.copyDate.from" type="date"
-            placeholder="Минимальная дата" />
-          <input (change)="syncFilterDate('copyDate', 'to')" [(ngModel)]="filter.copyDate.to" type="date"
-            placeholder="Максимальная дата" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-            <button (click)="setFilterDateToDefault('copyDate')">Сбросить</button>
-          </div>
-        </div>
-      </th>
-      <th class="small">
-        <button (click)="filterToggle(9)">Дата ориг-ла</button>
-        <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[9]">
-          <input (change)="syncFilterDate('origDate', 'from')" [(ngModel)]="filter.origDate.from" type="date"
-            placeholder="Минимальная дата" />
-          <input (change)="syncFilterDate('origDate', 'to')" [(ngModel)]="filter.origDate.to" type="date"
-            placeholder="Максимальная дата" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-            <button (click)="setFilterDateToDefault('origDate')">Сбросить</button>
-          </div>
-        </div>
-      </th>
-      <th class="medium">
-        <button (click)="filterToggle(10)">Комментарий</button>
-        <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[10]">
-          <input [(ngModel)]="filter.title" type="search" placeholder="Поиск" />
-          <div class="tools">
-            <button (click)="tableUpdate()">Применить</button>
-          </div>
-        </div>
-      </th>
-    </tr>
-  </table>
-
-  <ng-container *ngIf="table.length !== 0; else loading">
-    <table class="content">
-      <tr *ngFor="let row of table" (click)="toggleSelected(row)" [class.selected]="row === selectedRow">
-        <td class="medium">
-          <ng-container *ngIf="allow(); else notAllow1">
-            <select [ngClass]="{changed: row.initiator_isChanged}" (change)="onChange(row, 'initiator', $event.target)">
-              <option *ngFor="let initiator of initiators" [value]="initiator.id"
-                [selected]="initiator.id === row.initiator.id">{{initiator.name}}</option>
-            </select>
-          </ng-container>
-          <ng-template #notAllow1>{{row.initiator.name}}</ng-template>
-        </td>
-        <td class="medium">{{row.contractor.name}}</td>
-        <td class="large">{{row.destination}}</td>
-        <td class="small">{{row.number}}</td>
-        <td class="small">{{row.date | date: 'dd MMM yyyy' }}</td>
-        <td class="small">{{row.sum}}</td>
-        <td class="small">
-          <ng-container *ngIf="allow(); else notAllow2">
-            <select [ngClass]="{ changed: row.mark_isChanged }" (change)="onChange(row, 'mark', $event.target)">
-              <option *ngFor="let d of dd.mark" [value]="d.id" [selected]="d.id === row.mark.id">{{ d.text }}</option>
-            </select>
-          </ng-container>
-          <ng-template #notAllow2>{{row.mark.text}}</ng-template>
-        </td>
-        <td class="small">{{row.status.text}}</td>
-        <td class="small">{{row.copyDate | date: 'dd MMM yyyy' }}</td>
-        <td class="small">{{row.origDate | date: 'dd MMM yyyy' }}</td>
-        <td class="medium">
-          <input type="text" (change)="onChange(row, 'title')" [(ngModel)]="row.title"
-            [ngClass]="{ changed: row.title_isChanged }" />
-        </td>
-      </tr>
+    <table class="header">
+        <tr>
+            <th class="medium">
+                <input type="month" (change)="filterInputDate()" [(ngModel)]="filterInputDateString"/>
+            </th>
+            <th class="medium">{{ loadingElements.text }}</th>
+            <th class="large"></th>
+            <th class="small">
+                <button *ngIf="isChanged" (click)="submit()">Применить</button>
+            </th>
+            <th class="small">
+                <button *ngIf="isChanged" (click)="tableUpdate()">Отменить</button>
+            </th>
+            <th class="small">
+                <button (click)="modal.open('Новая строка')">Добавить</button>
+            </th>
+            <th class="small"></th>
+            <th class="small"></th>
+            <th class="small"></th>
+            <th class="small"></th>
+            <th class="medium"></th>
+        </tr>
+        <tr>
+            <th class="medium">
+                <button (click)="filterToggle(0)">Инициатор</button>
+                <div class="dropdown" *ngIf="filterIsOpened[0]">
+                    <div class="search">
+                        <input
+                                [(ngModel)]="initiatorsFilter"
+                                (ngModelChange)="filterInitiators()"
+                                type="search"
+                                placeholder="Поиск"
+                        />
+                    </div>
+                    <div class="list">
+                        <div class="listrows" *ngFor="let i of initiatorsFiltered" (click)="toggleCheckbox(i)">
+                            <input [(ngModel)]="i.isChecked" id="{{ i.id }}" type="checkbox"/>
+                            <label>{{ i.name }}</label>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <button (click)="ddFilterManager.confirm('initiator')">
+                            Применить
+                        </button>
+                        <button (click)="ddFilterManager.reset('initiator')">
+                            Сбросить
+                        </button>
+                    </div>
+                </div>
+            </th>
+            <th class="medium">
+                <button (click)="filterToggle(1)">Контрагент</button>
+                <div class="dropdown" *ngIf="filterIsOpened[1]">
+                    <div class="search">
+                        <input
+                                [(ngModel)]="contractorsFilter"
+                                (ngModelChange)="filterContractors()"
+                                type="search"
+                                placeholder="Поиск"
+                        />
+                    </div>
+                    <div class="list">
+                        <div class="listrows" *ngFor="let c of contractorsFiltered" (click)="toggleCheckbox(c)">
+                            <input [(ngModel)]="c.isChecked" id="{{ c.id }}" type="checkbox"/>
+                            <label>{{ c.name }}</label>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <button (click)="ddFilterManager.confirm('contractor')">
+                            Применить
+                        </button>
+                        <button (click)="ddFilterManager.reset('contractor')">
+                            Сбросить
+                        </button>
+                    </div>
+                </div>
+            </th>
+            <th class="large">
+                <button (click)="filterToggle(2)">Назначение</button>
+                <div class="dropdown" style="height: auto; resize: none" *ngIf="filterIsOpened[2]">
+                    <input [(ngModel)]="filter.destination" type="search" placeholder="Поиск"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(3)">Номер</button>
+                <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[3]">
+                    <input [(ngModel)]="filter.number.from" type="number" placeholder="Минимальный номер"/>
+                    <input [(ngModel)]="filter.number.to" type="number" placeholder="Максимальный номер"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(4)">Дата док-а</button>
+                <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[4]">
+                    <input (change)="syncFilterDate('mainDate', 'from')" [(ngModel)]="filter.mainDate.from" type="date"
+                           placeholder="Минимальная дата"/>
+                    <input (change)="syncFilterDate('mainDate', 'to')" [(ngModel)]="filter.mainDate.to" type="date"
+                           placeholder="Максимальная дата"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                        <button (click)="setFilterDateToDefault('mainDate')">Сбросить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(5)">Сумма</button>
+                <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[5]">
+                    <input [(ngModel)]="filter.sum.from" type="number" placeholder="Минимальная сумма"/>
+                    <input [(ngModel)]="filter.sum.to" type="number" placeholder="Максимальная сумма"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(6)">Отметка</button>
+                <div class="dropdown" style="height: auto" *ngIf="filterIsOpened[6]">
+                    <div class="list">
+                        <div class="listrows" *ngFor="let m of marks" (click)="toggleCheckbox(m)">
+                            <input [(ngModel)]="m.isChecked" id="{{ m.id }}" type="checkbox"/>
+                            <label>{{ m.name }}</label>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <button (click)="ddFilterManager.confirm('mark')">Применить</button>
+                        <button (click)="ddFilterManager.reset('mark')">Сбросить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(7)">Статус</button>
+                <div class="dropdown" style="height: auto; width: 200px" *ngIf="filterIsOpened[7]">
+                    <div class="list">
+                        <div class="listrows" *ngFor="let s of statuses" (click)="toggleCheckbox(s)">
+                            <input [(ngModel)]="s.isChecked" id="{{ s.id }}" type="checkbox"/>
+                            <label>{{ s.name }}</label>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <button (click)="ddFilterManager.confirm('status')">
+                            Применить
+                        </button>
+                        <button (click)="ddFilterManager.reset('status')">Сбросить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(8)">Дата копии</button>
+                <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[8]">
+                    <input (change)="syncFilterDate('copyDate', 'from')" [(ngModel)]="filter.copyDate.from" type="date"
+                           placeholder="Минимальная дата"/>
+                    <input (change)="syncFilterDate('copyDate', 'to')" [(ngModel)]="filter.copyDate.to" type="date"
+                           placeholder="Максимальная дата"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                        <button (click)="setFilterDateToDefault('copyDate')">Сбросить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="small">
+                <button (click)="filterToggle(9)">Дата ориг-ла</button>
+                <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[9]">
+                    <input (change)="syncFilterDate('origDate', 'from')" [(ngModel)]="filter.origDate.from" type="date"
+                           placeholder="Минимальная дата"/>
+                    <input (change)="syncFilterDate('origDate', 'to')" [(ngModel)]="filter.origDate.to" type="date"
+                           placeholder="Максимальная дата"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                        <button (click)="setFilterDateToDefault('origDate')">Сбросить</button>
+                    </div>
+                </div>
+            </th>
+            <th class="medium">
+                <button (click)="filterToggle(10)">Комментарий</button>
+                <div class="dropdown" style="height: auto; width: 200px; resize: none" *ngIf="filterIsOpened[10]">
+                    <input [(ngModel)]="filter.title" type="search" placeholder="Поиск"/>
+                    <div class="tools">
+                        <button (click)="tableUpdate()">Применить</button>
+                    </div>
+                </div>
+            </th>
+        </tr>
     </table>
-  </ng-container>
-  <ng-template #loading>
-    <div class="loading"></div>
-  </ng-template>
 
-  <app-modal>
-    <div class="modal">
-      <div class="plate-in-modal">
-        <label>Инициатор:
-          <input list="initiators" type="search" [(ngModel)]="formNew.initiator">
-          <datalist id="initiators">
-            <option *ngFor="let initiator of initiators" [value]="initiator.name"></option>
-          </datalist>
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Контрагент:
-          <input list="contractors" type="text" [(ngModel)]="formNew.contractor">
-          <datalist id="contractors">
-            <option *ngFor="let contractor of contractors" [value]="contractor.name"></option>
-          </datalist>
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Назначение платежа:
-          <input type="text" [(ngModel)]="formNew.destination">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Номер документа:
-          <input type="number" [(ngModel)]="formNew.number">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Дата документа:
-          <input type="date" [(ngModel)]="formNew.date">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Сумма:
-          <input type="number" step="1000" [(ngModel)]="formNew.sum">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Статус:
-          <select [(ngModel)]="formNew.status.id">
-            <option *ngFor="let status of statuses" [value]="status.id">{{status.name}}</option>
-          </select>
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Дата предоставления копии:
-          <input type="date" [(ngModel)]="formNew.copyDate">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Дата предоставления оригинала:
-          <input type="date" [(ngModel)]="formNew.origDate">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <label>Комментарий:
-          <input type="text" placeholder="Необязательное поле" [(ngModel)]="formNew.title">
-        </label>
-      </div>
-      <div class="plate-in-modal">
-        <button (click)="newRow()">Добавить</button>
-        <button (click)="formNew.reset()">Сбросить</button>
-      </div>
-    </div>
-  </app-modal>
+    <ng-container *ngIf="table.length !== 0; else loading">
+        <table class="content">
+            <tr *ngFor="let row of table" (click)="toggleSelected(row)" [class.selected]="row === selectedRow">
+                <td class="medium">
+                    <ng-container *ngIf="allow(); else notAllow1">
+                        <select [ngClass]="{changed: row.initiator_isChanged}"
+                                (change)="onChange(row, 'initiator', $event.target)">
+                            <option *ngFor="let initiator of initiators" [value]="initiator.id"
+                                    [selected]="initiator.id === row.initiator.id">{{ initiator.name }}
+                            </option>
+                        </select>
+                    </ng-container>
+                    <ng-template #notAllow1>{{ row.initiator.name }}</ng-template>
+                </td>
+                <td class="medium">{{ row.contractor.name }}</td>
+                <td class="large">{{ row.destination }}</td>
+                <td class="small">{{ row.number }}</td>
+                <td class="small">{{ row.date | date: 'dd MMM yyyy' }}</td>
+                <td class="small">{{ row.sum }}</td>
+                <td class="small">
+                    <ng-container *ngIf="allow(); else notAllow2">
+                        <select [ngClass]="{ changed: row.mark_isChanged }"
+                                (change)="onChange(row, 'mark', $event.target)">
+                            <option *ngFor="let d of dd.mark" [value]="d.id"
+                                    [selected]="d.id === row.mark.id">{{ d.text }}
+                            </option>
+                        </select>
+                    </ng-container>
+                    <ng-template #notAllow2>{{ row.mark.text }}</ng-template>
+                </td>
+                <td class="small">{{ row.status.text }}</td>
+                <td class="small">{{ row.copyDate | date: 'dd MMM yyyy' }}</td>
+                <td class="small">{{ row.origDate | date: 'dd MMM yyyy' }}</td>
+                <td class="medium">
+                    <input type="text" (change)="onChange(row, 'title')" [(ngModel)]="row.title"
+                           [ngClass]="{ changed: row.title_isChanged }"/>
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+    <ng-template #loading>
+        <div class="loading"></div>
+    </ng-template>
+
+    <app-modal>
+        <div class="modal">
+            <div class="plate-in-modal">
+                <label>Инициатор:
+                    <input list="initiators" type="search" [(ngModel)]="formNew.initiator">
+                    <datalist id="initiators">
+                        <option *ngFor="let initiator of initiators" [value]="initiator.name"></option>
+                    </datalist>
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Контрагент:
+                    <input list="contractors" type="text" [(ngModel)]="formNew.contractor">
+                    <datalist id="contractors">
+                        <option *ngFor="let contractor of contractors" [value]="contractor.name"></option>
+                    </datalist>
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Назначение платежа:
+                    <input type="text" [(ngModel)]="formNew.destination">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Номер документа:
+                    <input type="number" [(ngModel)]="formNew.number">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Дата документа:
+                    <input type="date" [(ngModel)]="formNew.date">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Сумма:
+                    <input type="number" step="1000" [(ngModel)]="formNew.sum">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Статус:
+                    <select [(ngModel)]="formNew.status.id">
+                        <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Дата предоставления копии:
+                    <input type="date" [(ngModel)]="formNew.copyDate">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Дата предоставления оригинала:
+                    <input type="date" [(ngModel)]="formNew.origDate">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <label>Комментарий:
+                    <input type="text" placeholder="Необязательное поле" [(ngModel)]="formNew.title">
+                </label>
+            </div>
+            <div class="plate-in-modal">
+                <button (click)="newRow()">Добавить</button>
+                <button (click)="formNew.reset()">Сбросить</button>
+            </div>
+        </div>
+    </app-modal>
 
 </section>

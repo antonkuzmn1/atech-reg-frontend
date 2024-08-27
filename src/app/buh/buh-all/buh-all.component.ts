@@ -109,6 +109,8 @@ export class BuhAllComponent implements OnInit {
    * this parts can get the dropdown's data
    */
   contractors: BuhEntityIdNameBool[] = [];
+  contractorsFilter: string = '';
+  contractorsFiltered: BuhEntityIdNameBool[] = [];
   getContractors(): void {
     this.buhService.getContractors().subscribe({
       next: (data: { id: number; name: string }[]) => {
@@ -132,10 +134,18 @@ export class BuhAllComponent implements OnInit {
           if (a.name > b.name) return 1;
           return 0;
         });
+        this.contractorsFiltered = this.contractors
       },
     });
   }
+  filterContractors() {
+    this.contractorsFiltered = this.contractors.filter(contractor =>
+        contractor.name.toLowerCase().includes(this.contractorsFilter.toLowerCase())
+    );
+  }
   initiators: BuhEntityIdNameBool[] = [];
+  initiatorsFilter: string = '';
+  initiatorsFiltered: BuhEntityIdNameBool[] = [];
   getInitiators(): void {
     this.buhService.getInitiators().subscribe({
       next: (data: { id: number; name: string }[]) => {
@@ -151,8 +161,14 @@ export class BuhAllComponent implements OnInit {
           if (a.name > b.name) return 1;
           return 0;
         });
+        this.initiatorsFiltered = this.initiators;
       },
     });
+  }
+  filterInitiators() {
+    this.initiatorsFiltered = this.initiators.filter(initiator =>
+        initiator.name.toLowerCase().includes(this.initiatorsFilter.toLowerCase())
+    );
   }
   dd: BuhDropdownList = new BuhDropdownList();
   marks: BuhEntityIdNameBool[] = [];

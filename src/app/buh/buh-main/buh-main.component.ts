@@ -60,6 +60,11 @@ export class BuhMainComponent implements OnInit {
   marks: BuhEntityIdNameBool[] = [];
   statuses: BuhEntityIdNameBool[] = [];
 
+  contractorsFilter: string = '';
+  initiatorsFilter: string = '';
+  contractorsFiltered: BuhEntityIdNameBool[] = [];
+  initiatorsFiltered: BuhEntityIdNameBool[] = [];
+
   isChanged: boolean = false;
   filterIsOpened: boolean[] = [
     false,
@@ -142,6 +147,7 @@ export class BuhMainComponent implements OnInit {
           if (a.name > b.name) return 1;
           return 0;
         });
+        this.contractorsFiltered = this.contractors
       },
     });
   }
@@ -168,6 +174,7 @@ export class BuhMainComponent implements OnInit {
           if (a.name > b.name) return 1;
           return 0;
         });
+        this.initiatorsFiltered = this.initiators;
       },
     });
   }
@@ -485,5 +492,17 @@ export class BuhMainComponent implements OnInit {
     const year: number = date.getFullYear();
 
     return `${day}.${month}.${year}`;
+  }
+
+  filterContractors() {
+    this.contractorsFiltered = this.contractors.filter(contractor =>
+        contractor.name.toLowerCase().includes(this.contractorsFilter.toLowerCase())
+    );
+  }
+
+  filterInitiators() {
+    this.initiatorsFiltered = this.initiators.filter(initiator =>
+        initiator.name.toLowerCase().includes(this.initiatorsFilter.toLowerCase())
+    );
   }
 }
