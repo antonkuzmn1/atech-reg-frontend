@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { Dictionaries } from '../../common/dictionaries';
@@ -7,6 +7,7 @@ import { BuhImportService } from './buh-import.service';
 import { BuhImportParserParams } from './classes/buh-import-parser-params';
 import { BuhImportResult } from './classes/buh-import-result';
 import { BuhImportRow } from './classes/buh-import-row';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-buh-import',
@@ -22,6 +23,7 @@ import { BuhImportRow } from './classes/buh-import-row';
 export class BuhImportComponent {
   constructor(
     private service: BuhImportService,
+    private toastr: ToastrService,
   ) { }
   file!: File;
   jsonData: BuhImportRow[] = [];
@@ -105,13 +107,20 @@ export class BuhImportComponent {
   }
 
   dateToString(date: Date) {
-    const day = date.getDate();
-    const month = Dictionaries.date.month.full.lower.russian.genetive[date.getMonth()];
-    const year = date.getFullYear();
-    return `${day} ${month} ${year} г.`;
+      if (!date) {
+          return '';
+      }
+      const day = date.getDate();
+      const month = Dictionaries.date.month.full.lower.russian.genetive[date.getMonth()];
+      const year = date.getFullYear();
+      return `${day} ${month} ${year} г.`;
   }
 
   upload(): void {
+    if (this.jsonData.find(row => row.paymentDestination === "")) {
+        this.toastr.error('Поле "Назначение платежа" не может быть пустым');
+        return;
+    }
     this.service.upload(this.jsonData).subscribe({
       next: (result: BuhImportResult) => {
         console.log(result);

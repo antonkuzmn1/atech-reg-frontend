@@ -28,11 +28,11 @@
     <table class="content">
         <tr *ngFor="let row of firstAndLastRows">
             <td class="small">{{row.index}}</td>
-            <td class="medium">{{dateToString(row.row.inputDate)}}</td>
-            <td class="medium">{{row.row.contrAgent}}</td>
-            <td class="large">{{row.row.paymentDestination}}</td>
-            <td class="medium">{{row.row.initiatorOfPayment}}</td>
-            <td class="small">{{row.row.sum}}</td>
+            <td class="medium">{{dateToString(row.row?.inputDate)}}</td>
+            <td class="medium">{{row.row?.contrAgent}}</td>
+            <td class="large">{{row.row?.paymentDestination}}</td>
+            <td class="medium">{{row.row?.initiatorOfPayment}}</td>
+            <td class="small">{{row.row?.sum}}</td>
         </tr>
     </table>
 </section>
