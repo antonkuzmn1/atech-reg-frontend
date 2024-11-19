@@ -3,7 +3,9 @@
         <tr>
             <th class="small"></th>
             <th class="medium"></th>
-            <th class="large"></th>
+            <th class="large">
+                <button (click)="exportXLSX()">Экспорт в XLSX</button>
+            </th>
             <th class="medium">{{ loadingPlate }}</th>
             <th class="small">
                 <button *ngIf="isChanged" (click)="submit()">Применить</button>
